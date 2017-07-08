@@ -7,27 +7,48 @@
       #time {
         font-size: 128px;
         font-family: sans-serif;
-        margin: 96px 48px;
+        margin: 0;
+        margin-top: 96px;
+        margin-left: 48px;
+      }
+
+      #weekday {
+        font-size: 48px;
+        font-family: sans-serif;
+        color: #ddd;
+        margin: 0;
+        margin-bottom: 48px;
+        margin-left: 48px;
+        position: absolute;
+        bottom: 0;
       }
     </style>
   </head>
 
   <body>
     <p id="time">Enable javascript to view time.</p>
+    <p id="weekday"></p>
 
     <script>
       var timeEl = document.getElementById("time");
+      var weekdayEl = document.getElementById("weekday");
 
       function padLeftZero(value) {
         var s = value.toString();
         return s.length == 1 ? "0" + s : s;
       }
+
+      function weekdayToStr(i) {
+        return ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'][i];
+      }
       
       function updateTime() {
         var now = new Date();
-        var s = padLeftZero(now.getHours()) + ":" + padLeftZero(now.getMinutes());
-        timeEl.innerHTML = s;
-        document.title = s;
+        var timeStr = padLeftZero(now.getHours()) + ":" + padLeftZero(now.getMinutes());
+        var weekdayStr = weekdayToStr(now.getDay());
+        timeEl.innerHTML = timeStr;
+        weekdayEl.innerHTML = weekdayStr;
+        document.title = weekdayStr + ' ' + timeStr;
       }
 
       function updateTimeAndRepeat() {
